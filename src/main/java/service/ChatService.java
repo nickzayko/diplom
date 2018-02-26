@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service("chatService")
-public class ChatService {
+public class ChatService implements ChatServiceInterface {
 
     @Autowired
     private ChatDao chatDao;

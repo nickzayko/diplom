@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MessageService {
+public class MessageService implements MessageServiceInterface {
 
     @Autowired
     private MessageDao messageDao;

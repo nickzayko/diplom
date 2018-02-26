@@ -2,13 +2,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="springForm" uri="http://www.springframework.org/tags/form" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: katya
-  Date: 13.02.2018
-  Time: 10:00
-  To change this template use File | Settings | File Templates.
---%>
 
 <html>
 <head>

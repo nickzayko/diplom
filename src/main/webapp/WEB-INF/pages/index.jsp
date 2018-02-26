@@ -3,7 +3,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="springForm" uri="http://www.springframework.org/tags/form"%>
 
-
 <html>
 <head>
     <spring:message code="titleAuthorization" var="authorizationTitle"></spring:message>
@@ -12,8 +11,6 @@
 </head>
 
 <body>
-
-
 
 <hr>
 <span style="float: left">

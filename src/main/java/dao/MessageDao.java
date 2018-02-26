@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class MessageDao {
+public class MessageDao implements MessageDaoInterface {
 
     @Autowired
     private SessionFactory sessionFactory;

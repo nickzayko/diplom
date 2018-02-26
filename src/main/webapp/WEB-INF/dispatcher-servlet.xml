@@ -97,7 +97,6 @@
     <!-- Менеджер транзакций-->
     <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
-
     </bean>
 
 </beans>

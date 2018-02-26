@@ -45,8 +45,8 @@ public class AuthorizationController {
             model.addAttribute("informationAuthorization", "emptyString");
             return "index";
         } else {
-            if (userService.isLoginExist(userEntity.getUserLogin())) {
-                userEntity = userService.isPasswordCorrect(userEntity.getUserLogin(), userEntity.getUserPassword());
+            if (userService.checkIsLoginExist(userEntity.getUserLogin())) {
+                userEntity = userService.findPassword(userEntity.getUserLogin(), userEntity.getUserPassword());
                 if (userEntity != null) {
                     session.setAttribute("userId", userEntity.getIdUser());
                     session.setAttribute("userName", userEntity.getUserName());
@@ -63,7 +63,6 @@ public class AuthorizationController {
                 return "index";
             }
         }
-
-
     }
+
 }

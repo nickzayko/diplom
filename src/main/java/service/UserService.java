@@ -15,16 +15,16 @@ public class UserService {
         userDao.saveUser(userEntity);
     }
 
-    public boolean isLoginExist (String login){
-        return userDao.isLoginExist(login);
+    public boolean checkIsLoginExist (String login){
+        return userDao.checkIsLoginExist(login);
     }
 
-    public boolean isEmailExist(String email) {
-        return userDao.isEmailExist(email);
+    public boolean checkIsEmailExist(String email) {
+        return userDao.checkIsEmailExist(email);
     }
 
-    public UserEntity isPasswordCorrect(String userLogin, String userPassword) {
-        return userDao.isPasswordCorrect(userLogin, userPassword);
+    public UserEntity findPassword(String userLogin, String userPassword) {
+        return userDao.findPassword(userLogin, userPassword);
     }
 
     public UserEntity getUser(int userId) {

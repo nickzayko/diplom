@@ -21,21 +21,21 @@ public class UserDao {
 
     }
 
-    public boolean isLoginExist(String login) {
+    public boolean checkIsLoginExist(String login) {
         String userHQL = "FROM UserEntity WHERE user_login = :login";
         org.hibernate.query.Query query = sessionFactory.getCurrentSession().createQuery(userHQL);
         query.setParameter("login", login);
         return query.list().size() > 0;
     }
 
-    public boolean isEmailExist(String email) {
+    public boolean checkIsEmailExist(String email) {
         String userHQL = "FROM UserEntity WHERE user_email = :email";
         org.hibernate.query.Query query = sessionFactory.getCurrentSession().createQuery(userHQL);
         query.setParameter("email", email);
         return query.list().size() > 0;
     }
 
-    public UserEntity isPasswordCorrect(String login, String password) {
+    public UserEntity findPassword(String login, String password) {
         try {
             String userHQL = "FROM UserEntity WHERE user_login = :login AND user_password = :password";
             org.hibernate.query.Query query = sessionFactory.getCurrentSession().createQuery(userHQL);

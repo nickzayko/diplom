@@ -20,7 +20,7 @@ public class MessageDao {
         sessionFactory.getCurrentSession().save(messageEntity);
     }
 
-    public List getMessagesFromDataBaseByTopicId(Integer topicId) {
+    public List getMessagesByTopicId(Integer topicId) {
         String messageHQL = "FROM MessageEntity WHERE topic_id = :topicId";
         org.hibernate.query.Query query = sessionFactory.getCurrentSession().createQuery(messageHQL);
         query.setParameter("topicId", topicId);

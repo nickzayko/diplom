@@ -22,8 +22,8 @@ public class ChatService {
         return chatDao.isTopicExist(topicName);
     }
 
-    public List checkIfChatExist(String findChatParam) {
-        return chatDao.checkIfChatExist(findChatParam);
+    public List findChats(String findChatParam) {
+        return chatDao.findChats(findChatParam);
     }
 
     public List showAllChats() {
@@ -35,11 +35,11 @@ public class ChatService {
     }
 
 
-    public TopicEntity getTopicEntityByTopicName(String requestParam) {
-        return chatDao.getTopicEntityByTopicName(requestParam);
+    public TopicEntity getTopicByName(String requestParam) {
+        return chatDao.getTopicByName(requestParam);
     }
 
-    public TopicEntity getTopicEntityByTopicId(int topicId) {
-        return chatDao.getTopicEntityByTopicId(topicId);
+    public TopicEntity getTopicById(int topicId) {
+        return chatDao.getTopicById(topicId);
     }
 }

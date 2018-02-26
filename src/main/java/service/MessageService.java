@@ -17,7 +17,7 @@ public class MessageService {
         messageDao.saveMessage(messageEntity);
     }
 
-    public List getMessagesFromDataBaseByTopicId(Integer topicId) {
-        return messageDao.getMessagesFromDataBaseByTopicId(topicId);
+    public List getMessagesByTopicId(Integer topicId) {
+        return messageDao.getMessagesByTopicId(topicId);
     }
 }

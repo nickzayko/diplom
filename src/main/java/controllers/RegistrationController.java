@@ -45,11 +45,11 @@ public class RegistrationController {
             model.addAttribute("informationLoginExistRegistration", "emptyString");
             return "registration";
         } else {
-            if (userService.isLoginExist(userEntity.getUserLogin())) {
+            if (userService.checkIsLoginExist(userEntity.getUserLogin())) {
                 model.addAttribute("informationLoginExistRegistration", "loginExist");
                 return "registration";
             } else {
-                if (userService.isEmailExist(userEntity.getUserEmail())) {
+                if (userService.checkIsEmailExist(userEntity.getUserEmail())) {
                     model.addAttribute("informationLoginExistRegistration", "emailExist");
                     return "registration";
                 } else {

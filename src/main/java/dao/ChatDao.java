@@ -27,7 +27,7 @@ public class ChatDao {
         return query.list().size() > 0;
     }
 
-    public List checkIfChatExist(String findChatParam) {
+    public List findChats(String findChatParam) {
         String chatHQL = "FROM TopicEntity WHERE topic_name LIKE ?";
         org.hibernate.query.Query query = sessionFactory.getCurrentSession().createQuery(chatHQL);
         query.setString(0, findChatParam + "%");
@@ -48,7 +48,7 @@ public class ChatDao {
         return query.list();
     }
 
-    public TopicEntity getTopicEntityByTopicName(String requestParam) {
+    public TopicEntity getTopicByName(String requestParam) {
         try {
             String userHQL = "FROM TopicEntity WHERE topic_name = :name";
             org.hibernate.query.Query query = sessionFactory.getCurrentSession().createQuery(userHQL);
@@ -60,7 +60,7 @@ public class ChatDao {
         return null;
     }
 
-    public TopicEntity getTopicEntityByTopicId(int topicId) {
+    public TopicEntity getTopicById(int topicId) {
         try {
             String userHQL = "FROM TopicEntity WHERE id_topics = :id";
             org.hibernate.query.Query query = sessionFactory.getCurrentSession().createQuery(userHQL);

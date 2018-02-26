@@ -21,8 +21,6 @@
     <context:component-scan base-package="service"/>
     <context:component-scan base-package="validators"/>
 
-
-
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass"
@@ -57,7 +55,6 @@
         </bean>
     </mvc:interceptors>
 
-
     <!--Нужен для получения свойств из файла jdbc.properties-->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:jdbc.properties"/>
@@ -72,7 +69,6 @@
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
-
     </bean>
 
     <!-- Фабрика, которая будет строить Hibernate-сессии -->

@@ -22,7 +22,7 @@ public class MainController {
         model.addAttribute("userEntity", new UserEntity());
         model.addAttribute("informationAuthorization", "emptyString");
         if (session.getAttribute("userId") != null && session.getAttribute("userName") != null) {
-            UserEntity userEntity = userService.getUserEntityFromDataBase((Integer) session.getAttribute("userId"));
+            UserEntity userEntity = userService.getUser((Integer) session.getAttribute("userId"));
             model.addAttribute(userEntity);
             model.addAttribute("topicEntity", new TopicEntity());
             return "mainPage";

@@ -37,27 +37,23 @@ public class UserDao {
 
     public UserEntity isPasswordCorrect(String login, String password) {
         try {
-            UserEntity userEntity = new UserEntity();
             String userHQL = "FROM UserEntity WHERE user_login = :login AND user_password = :password";
             org.hibernate.query.Query query = sessionFactory.getCurrentSession().createQuery(userHQL);
             query.setParameter("login", login);
             query.setParameter("password", password);
-            userEntity = (UserEntity) query.getSingleResult();
-            return userEntity;
+            return (UserEntity) query.getSingleResult();
         } catch (NoResultException nre) {
 
         }
         return null;
     }
 
-    public UserEntity getUserEntityFromDataBase(int userId) {
+    public UserEntity getUser(int userId) {
         try {
-            UserEntity userEntity = new UserEntity();
             String userHQL = "FROM UserEntity WHERE id_user = :user_id";
             org.hibernate.query.Query query = sessionFactory.getCurrentSession().createQuery(userHQL);
             query.setParameter("user_id", userId);
-            userEntity = (UserEntity) query.getSingleResult();
-            return userEntity;
+            return (UserEntity) query.getSingleResult();
         } catch (NoResultException nre) {
 
         }

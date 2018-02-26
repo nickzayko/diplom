@@ -26,7 +26,7 @@ public class AuthorizationController {
     @RequestMapping(value = "/authorization", method = RequestMethod.GET)
     public String authorization(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && session.getAttribute("userName") != null) {
-            UserEntity userEntity = userService.getUserEntityFromDataBase((Integer) session.getAttribute("userId"));
+            UserEntity userEntity = userService.getUser((Integer) session.getAttribute("userId"));
             model.addAttribute("userEntity", userEntity);
             model.addAttribute("topicEntity", new TopicEntity());
             return "mainPage";
@@ -50,7 +50,7 @@ public class AuthorizationController {
                 if (userEntity != null) {
                     session.setAttribute("userId", userEntity.getIdUser());
                     session.setAttribute("userName", userEntity.getUserName());
-                    userEntity = userService.getUserEntityFromDataBase(userEntity.getIdUser());
+                    userEntity = userService.getUser(userEntity.getIdUser());
                     model.addAttribute(userEntity);
                     model.addAttribute("topicEntity", new TopicEntity());
                     return "mainPage";

@@ -27,7 +27,7 @@ public class UserService {
         return userDao.isPasswordCorrect(userLogin, userPassword);
     }
 
-    public UserEntity getUserEntityFromDataBase(int userId) {
-        return userDao.getUserEntityFromDataBase(userId);
+    public UserEntity getUser(int userId) {
+        return userDao.getUser(userId);
     }
 }

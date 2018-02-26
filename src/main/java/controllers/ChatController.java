@@ -63,7 +63,7 @@ public class ChatController {
                 return "mainPage";
             } else {
                 if (session.getAttribute("userId") != null && session.getAttribute("userName") != null) {
-                    topicEntity.setUserEntity(userService.getUserEntityFromDataBase((Integer) session.getAttribute("userId")));
+                    topicEntity.setUserEntity(userService.getUser((Integer) session.getAttribute("userId")));
                     chatService.createNewTopic(topicEntity);
                     session.setAttribute("topicId", topicEntity.getIdTopic());
                     sendToPageInformationAboutChat(topicEntity, model);
@@ -144,7 +144,7 @@ public class ChatController {
     public String messageHandler(Model model, HttpSession session,
                                  @ModelAttribute("messageEntity") MessageEntity messageEntity, BindingResult result) {
         validationOfMessageText.validate(messageEntity, result);
-        UserEntity userEntity = userService.getUserEntityFromDataBase((Integer) session.getAttribute("userId"));
+        UserEntity userEntity = userService.getUser((Integer) session.getAttribute("userId"));
         TopicEntity topicEntity = chatService.getTopicEntityByTopicId((Integer) session.getAttribute("topicId"));
         messageEntity.setUserEntity(userEntity);
         messageEntity.setTopicEntity(topicEntity);

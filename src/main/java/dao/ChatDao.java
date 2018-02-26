@@ -53,8 +53,7 @@ public class ChatDao {
             String userHQL = "FROM TopicEntity WHERE topic_name = :name";
             org.hibernate.query.Query query = sessionFactory.getCurrentSession().createQuery(userHQL);
             query.setParameter("name", requestParam);
-            TopicEntity topicEntity = (TopicEntity) query.getSingleResult();
-            return topicEntity;
+            return (TopicEntity) query.getSingleResult();
         } catch (NoResultException nre) {
 
         }
@@ -66,8 +65,7 @@ public class ChatDao {
             String userHQL = "FROM TopicEntity WHERE id_topics = :id";
             org.hibernate.query.Query query = sessionFactory.getCurrentSession().createQuery(userHQL);
             query.setParameter("id", topicId);
-            TopicEntity topicEntity = (TopicEntity) query.getSingleResult();
-            return topicEntity;
+            return (TopicEntity) query.getSingleResult();
         } catch (NoResultException nre) {
 
         }

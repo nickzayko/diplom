@@ -150,14 +150,11 @@ public class ChatController {
         messageEntity.setTopicEntity(topicEntity);
         model.addAttribute("topicName", topicEntity.getTopicName());
         model.addAttribute("topicCreator", topicEntity.getUserEntity().getUserName());
-        if (result.hasErrors()) {
-            getMessagesForChat(session, model);
-            return "chatPage";
-        } else {
+        if (!result.hasErrors()) {
             messageService.saveMessage(messageEntity);
-            getMessagesForChat(session, model);
-            return "chatPage";
         }
+        getMessagesForChat(session, model);
+        return "chatPage";
     }
 
     //------Для ajax------обновление сообщений-------------

@@ -38,6 +38,14 @@ public class ChatController {
     @Autowired
     private ValidationOfMessageText validationOfMessageText;
 
+    @RequestMapping(value = "/showMenu", method = RequestMethod.GET)
+    public String showMenu(Model model, HttpSession session){
+        UserEntity userEntity = userService.getUser((Integer) session.getAttribute("userId"));
+        model.addAttribute(userEntity);
+        model.addAttribute("topicEntity", new TopicEntity());
+        return "mainPage";
+    }
+
     //создание нового чата и переход в него..............
     @RequestMapping(value = "/createTopic", method = RequestMethod.GET)
     public String createNewTopic(Model model, HttpSession session) {

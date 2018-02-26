@@ -1,0 +1,90 @@
+.form-row {
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.form-row input{
+    float: inherit;
+    height: 20px;
+    line-height: 20px;
+    padding: 0px 5px;
+    width: 270px;
+    border: 1px solid #abadb3;
+}
+.input-form{
+    width: 500px;
+    margin: 0px auto;
+}
+.reg-headline{
+    text-align: center;
+}
+
+.reg-errors{
+    text-align: center;
+    color: red;
+    font-family: cursive;
+    font-size: 13px;
+
+}
+.form-row input[type=submit]:hover {
+    background: cornflowerblue;
+}
+
+.textArea{
+    margin-left: 15px;
+}
+
+.form-row1 input{
+    float: left;
+    margin-left:15px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0px 5px;
+    width: 178px;
+    border: 1px solid #abadb3;
+}
+
+.form-row1 input[type=submit]:hover {
+    background: cornflowerblue;
+}
+
+.form-row1 input[type=reset]:hover {
+    background: cornflowerblue;
+}
+
+.form-row2 button{
+    position: fixed;
+    right: 0; bottom: 30px;
+    float: right;
+    height: 40px;
+    line-height: 20px;
+    padding: 0px 5px;
+    width: 183px;
+    border: 1px solid #abadb3;
+}
+
+.form-row2 button[type=button]:hover {
+    background: cornflowerblue;
+}
+
+
+.footer{
+    position: fixed; /* Фиксированное положение */
+    left: 0; bottom: 0; /* Левый нижний угол */
+    padding: 30px; /* Поля вокруг текста */
+    background: thistle; /* Цвет фона */
+    color: black; /* Цвет текста */
+    width: 100%; /* Ширина слоя */
+}
+
+.tableMessagesHeader{
+    width: 35%;
+
+}
+
+.somediv{
+    width: 35%;
+    height: 250px;
+    overflow: auto;
+
+}
+

@@ -35,7 +35,10 @@
     
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/*"/>
+            <mvc:mapping path="/menu/*"/>
+            <mvc:exclude-mapping path="/authorization"/>
+            <mvc:exclude-mapping path="/registration"/>
+            <mvc:exclude-mapping path="/menu/exit"/>
             <bean class="controllers.InterceptorController"/>
         </mvc:interceptor>
     </mvc:interceptors>

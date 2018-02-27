@@ -7,7 +7,6 @@
 <head>
     <spring:message code="chatPageTitle" var="chatPageTitle"/>
     <title>${chatPageTitle}</title>
-    <link href="/resources/css/styles.css" type="text/css" rel="stylesheet">
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
     <script>
@@ -35,11 +34,8 @@
 
 </head>
 <body>
-<hr>
-<span style="float: left">
-    <a href="?lang=en"><font color="blue">en</font></a>
-    <a href="?lang=ru"><font color="blue">ru</font></a>
-    </span>
+
+<%@include file="commonFileForJSPInclude.jsp" %>
 
 <spring:message code="headOfChatPage" var="headOfChatPage"/>
 <h1 class="reg-headline">${headOfChatPage}</h1>
@@ -58,13 +54,13 @@
     </tr>
 </table>
 <hr>
+
 <table class="tableMessagesHeader">
     <tr>
         <spring:message code="headOfTableAuthorOfMessage" var="authotOfMessage"></spring:message>
         <td align="center">${authotOfMessage}</td>
         <spring:message code="headOfTableTextOfMessage" var="textOfMessage"></spring:message>
         <td align="left">${textOfMessage}</td>
-
     </tr>
 </table>
 
@@ -80,7 +76,6 @@
                 </td>
             </tr>
         </c:forEach>
-
     </table>
 </div>
 

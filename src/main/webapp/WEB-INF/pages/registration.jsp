@@ -6,15 +6,15 @@
 <head>
     <spring:message code="titleRegistration" var="registrationTitle"></spring:message>
     <title>${registrationTitle}</title>
-    <link href="/resources/css/styles.css" type="text/css" rel="stylesheet">
+    <%--<link href="/resources/css/styles.css" type="text/css" rel="stylesheet">--%>
 </head>
 <body>
-
-<hr>
-<span style="float: left">
-    <a href="?lang=en"><font color="blue">en</font></a>
-    <a href="?lang=ru"><font color="blue">ru</font></a>
-    </span>
+<%@include file="commonFileForJSPInclude.jsp"%>
+<%--<hr>--%>
+<%--<span style="float: left">--%>
+    <%--<a href="?lang=en"><font color="blue">en</font></a>--%>
+    <%--<a href="?lang=ru"><font color="blue">ru</font></a>--%>
+    <%--</span>--%>
 
 <spring:message code="welcomeRegistrationPage" var="registrationHeader"/>
 <h1 class="reg-headline">${registrationHeader}</h1>

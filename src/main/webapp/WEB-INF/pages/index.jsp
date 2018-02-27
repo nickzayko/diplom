@@ -1,22 +1,18 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="springForm" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="springForm" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
     <spring:message code="titleAuthorization" var="authorizationTitle"></spring:message>
     <title>${authorizationTitle}</title>
-    <link href="/resources/css/styles.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
 
-<hr>
-<span style="float: left">
-    <a href="?lang=en"><font color="blue">en</font></a>
-    <a href="?lang=ru"><font color="blue">ru</font></a>
-    </span>
+<%--Подгружает стили и переключение языков--%>
+<%@include file="commonFileForJSPInclude.jsp" %>
 
 <spring:message code="welcomeAuthorizationPage" var="authorizationHeader"/>
 <h1 class="reg-headline">${authorizationHeader}</h1>
@@ -48,11 +44,8 @@
 </form>
 <hr>
 <div class="reg-errors">
-<spring:message code="${informationAuthorization}"/>
+    <spring:message code="${informationAuthorization}"/>
 </div>
-
-
-
 
 </body>
 </html>

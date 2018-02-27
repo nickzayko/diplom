@@ -6,14 +6,10 @@
 <head>
     <spring:message code="titleMainPage" var="mainPageTitle"></spring:message>
     <title>${mainPageTitle}</title>
-    <link href="/resources/css/styles.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<hr>
-<span style="float: left">
-    <a href="?lang=en"><font color="blue">en</font></a>
-    <a href="?lang=ru"><font color="blue">ru</font></a>
-    </span>
+
+<%@include file="commonFileForJSPInclude.jsp" %>
 
 <spring:message code="headOfMainPage" var="mainPageHeader"/>
 <h1 class="reg-headline">${mainPageHeader}</h1>
@@ -56,7 +52,6 @@
         <input type="submit" value="${buttonExitFromApplication}">
     </div>
 </springForm:form>
-
 
 ${userEntity.idUser}
 ${userEntity.userName}

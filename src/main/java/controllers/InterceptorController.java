@@ -15,13 +15,11 @@ public class InterceptorController implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         if (session.getAttribute("userId") == null && session.getAttribute("userName") == null) {
-            request.setAttribute("userEntity", new UserEntity());
-            request.setAttribute("informationAuthorization", "emptyString");
-            request.getRequestDispatcher("WEB-INF/pages/index.jsp").forward(request, response);
+            response.sendRedirect("/authorization");
+            return false;
         } else {
             return true;
         }
-        return true;
     }
 
 

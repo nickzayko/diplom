@@ -32,7 +32,8 @@
             <value>.jsp</value>
         </property>
     </bean>
-    
+
+
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/menu/*"/>

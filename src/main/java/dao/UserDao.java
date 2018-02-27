@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
-import java.util.List;
 
 @Repository
 @Transactional
@@ -43,7 +42,7 @@ public class UserDao implements UserDaoInterface {
             query.setParameter("password", password);
             return (UserEntity) query.getSingleResult();
         } catch (NoResultException nre) {
-
+            System.out.println("There are no find user.");
         }
         return null;
     }
@@ -55,7 +54,7 @@ public class UserDao implements UserDaoInterface {
             query.setParameter("user_id", userId);
             return (UserEntity) query.getSingleResult();
         } catch (NoResultException nre) {
-
+            System.out.println("There are no find user.");
         }
         return null;
     }

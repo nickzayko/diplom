@@ -11,11 +11,11 @@ public class UserService implements UserServiceInterface {
     @Autowired
     UserDao userDao;
 
-    public void createUser (UserEntity userEntity){
+    public void createUser(UserEntity userEntity) {
         userDao.saveUser(userEntity);
     }
 
-    public boolean checkIsLoginExist (String login){
+    public boolean checkIsLoginExist(String login) {
         return userDao.checkIsLoginExist(login);
     }
 

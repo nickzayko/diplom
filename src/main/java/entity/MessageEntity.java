@@ -16,17 +16,10 @@ public class MessageEntity {
     @Column(name = "text_of_message")
     private String textOfMessage;
 
-//    @Column(name = "user_id")
-//    private int userId;
-
     @JsonBackReference
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
-
-
-//    @Column(name = "topic_id")
-//    private int topicId;
 
     @JsonBackReference
     @ManyToOne
@@ -71,13 +64,12 @@ public class MessageEntity {
         this.topicEntity = topicEntity;
     }
 
-
     public MessageEntity() {
     }
 
     @Override
     public String toString() {
-        return  textOfMessage;
+        return textOfMessage;
     }
 }
 

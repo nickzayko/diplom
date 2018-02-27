@@ -55,7 +55,7 @@ public class ChatDao implements ChatDaoInterface {
             query.setParameter("name", requestParam);
             return (TopicEntity) query.getSingleResult();
         } catch (NoResultException nre) {
-
+            System.out.println("There are no find topic.");
         }
         return null;
     }
@@ -67,7 +67,7 @@ public class ChatDao implements ChatDaoInterface {
             query.setParameter("id", topicId);
             return (TopicEntity) query.getSingleResult();
         } catch (NoResultException nre) {
-
+            System.out.println("There are no find topic.");
         }
         return null;
     }

@@ -19,14 +19,6 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class RegistrationController {
 
-
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model) {
-        model.addAttribute("userEntity", new UserEntity());
-        model.addAttribute("informationLoginExistRegistration", "emptyString");
-        return "registration";
-    }
-
     @Autowired
     public UserDao userDao;
 
@@ -36,6 +28,12 @@ public class RegistrationController {
     @Autowired
     private RegistrationValidator registrationValidator;
 
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String registration(Model model) {
+        model.addAttribute("userEntity", new UserEntity());
+        model.addAttribute("informationLoginExistRegistration", "emptyString");
+        return "registration";
+    }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(Model model, HttpSession session,

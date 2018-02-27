@@ -2,35 +2,17 @@ package entity;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class UserEntity {
 
-    @OneToMany(mappedBy="userEntity", orphanRemoval=true, cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "userEntity", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<TopicEntity> topicEntityList;
-
-    public List<TopicEntity> getTopicEntityList() {
-        return topicEntityList;
-    }
-
-    public void setTopicEntityList(List<TopicEntity> topicEntityList) {
-        this.topicEntityList = topicEntityList;
-    }
 
     @OneToMany(mappedBy = "userEntity", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<MessageEntity> messageEntityListForUsers;
-
-    public List<MessageEntity> getMessageEntityListForUsers() {
-        return messageEntityListForUsers;
-    }
-
-    public void setMessageEntityListForUsers(List<MessageEntity> messageEntityListForUsers) {
-        this.messageEntityListForUsers = messageEntityListForUsers;
-    }
 
     @Id
     @Column(name = "id_user")
@@ -49,7 +31,7 @@ public class UserEntity {
     @Column(name = "user_login", length = 65, unique = true)
     private String userLogin;
 
-    @Column (name = "user_password", length = 65)
+    @Column(name = "user_password", length = 65)
     private String userPassword;
 
     public UserEntity(String userName, String userSurname, String userEmail, String userLogin, String userPassword) {
@@ -84,7 +66,24 @@ public class UserEntity {
         this.userPassword = userPassword;
     }
 
-    public UserEntity(){}
+    public UserEntity() {
+    }
+
+    public List<TopicEntity> getTopicEntityList() {
+        return topicEntityList;
+    }
+
+    public void setTopicEntityList(List<TopicEntity> topicEntityList) {
+        this.topicEntityList = topicEntityList;
+    }
+
+    public List<MessageEntity> getMessageEntityListForUsers() {
+        return messageEntityListForUsers;
+    }
+
+    public void setMessageEntityListForUsers(List<MessageEntity> messageEntityListForUsers) {
+        this.messageEntityListForUsers = messageEntityListForUsers;
+    }
 
     public int getIdUser() {
         return idUser;

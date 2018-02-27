@@ -15,7 +15,6 @@ public class MessageDao implements MessageDaoInterface {
     @Autowired
     private SessionFactory sessionFactory;
 
-
     public void saveMessage(MessageEntity messageEntity) {
         sessionFactory.getCurrentSession().save(messageEntity);
     }

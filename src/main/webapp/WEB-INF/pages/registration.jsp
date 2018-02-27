@@ -6,15 +6,10 @@
 <head>
     <spring:message code="titleRegistration" var="registrationTitle"></spring:message>
     <title>${registrationTitle}</title>
-    <%--<link href="/resources/css/styles.css" type="text/css" rel="stylesheet">--%>
 </head>
 <body>
-<%@include file="commonFileForJSPInclude.jsp"%>
-<%--<hr>--%>
-<%--<span style="float: left">--%>
-    <%--<a href="?lang=en"><font color="blue">en</font></a>--%>
-    <%--<a href="?lang=ru"><font color="blue">ru</font></a>--%>
-    <%--</span>--%>
+
+<%@include file="commonFileForJSPInclude.jsp" %>
 
 <spring:message code="welcomeRegistrationPage" var="registrationHeader"/>
 <h1 class="reg-headline">${registrationHeader}</h1>
@@ -26,7 +21,6 @@
         <spring:message code="name" var="registrationName"/>
         <springForm:input type="text" placeholder="${registrationName}" path="userName" id="field"/>
         <springForm:errors path="userName" cssClass="reg-errors"/>
-
     </div>
 
     <div class="form-row">
@@ -65,7 +59,6 @@
 <div class="reg-errors">
     <spring:message code="${informationLoginExistRegistration}"/>
 </div>
-
 
 </body>
 </html>

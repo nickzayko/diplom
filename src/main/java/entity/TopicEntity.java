@@ -12,14 +12,6 @@ public class TopicEntity {
     @OneToMany(mappedBy = "topicEntity", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<MessageEntity> messageEntityListForTopics;
 
-    public List<MessageEntity> getMessageEntityListForTopics() {
-        return messageEntityListForTopics;
-    }
-
-    public void setMessageEntityListForTopics(List<MessageEntity> messageEntityListForTopics) {
-        this.messageEntityListForTopics = messageEntityListForTopics;
-    }
-
     @Id
     @Column(name = "id_topics")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +39,13 @@ public class TopicEntity {
     public TopicEntity() {
     }
 
+    public List<MessageEntity> getMessageEntityListForTopics() {
+        return messageEntityListForTopics;
+    }
+
+    public void setMessageEntityListForTopics(List<MessageEntity> messageEntityListForTopics) {
+        this.messageEntityListForTopics = messageEntityListForTopics;
+    }
     public int getIdTopic() {
         return idTopic;
     }

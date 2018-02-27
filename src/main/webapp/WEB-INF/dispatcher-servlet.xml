@@ -33,7 +33,7 @@
         </property>
     </bean>
 
-
+<!--запрещает работать в приложении не залогинившись или не зарегавшись-->
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/menu/*"/>
@@ -43,6 +43,7 @@
             <bean class="controllers.InterceptorController"/>
         </mvc:interceptor>
     </mvc:interceptors>
+
 
     <bean id="messageSource"
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource">

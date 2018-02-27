@@ -31,7 +31,6 @@ public class RegistrationController {
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userEntity", new UserEntity());
-        model.addAttribute("informationLoginExistRegistration", "emptyString");
         return "registration";
     }
 
@@ -40,24 +39,14 @@ public class RegistrationController {
                                @ModelAttribute("userEntity") UserEntity userEntity, BindingResult result) {
         registrationValidator.validate(userEntity, result);
         if (result.hasErrors()) {
-            model.addAttribute("informationLoginExistRegistration", "emptyString");
             return "registration";
         } else {
-            if (userService.checkIsLoginExist(userEntity.getUserLogin())) {
-                model.addAttribute("informationLoginExistRegistration", "loginExist");
-                return "registration";
-            } else {
-                if (userService.checkIsEmailExist(userEntity.getUserEmail())) {
-                    model.addAttribute("informationLoginExistRegistration", "emailExist");
-                    return "registration";
-                } else {
-                    userService.createUser(userEntity);
-                    model.addAttribute("topicEntity", new TopicEntity());
-                    session.setAttribute("userId", userEntity.getIdUser());
-                    session.setAttribute("userName", userEntity.getUserName());
-                    return "mainPage";
-                }
-            }
+            userService.createUser(userEntity);
+            model.addAttribute("topicEntity", new TopicEntity());
+            session.setAttribute("userId", userEntity.getIdUser());
+            session.setAttribute("userName", userEntity.getUserName());
+            return "mainPage";
         }
     }
 }
+

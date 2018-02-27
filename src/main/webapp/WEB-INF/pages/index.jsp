@@ -43,9 +43,6 @@
     </div>
 </form>
 <hr>
-<div class="reg-errors">
-    <spring:message code="${informationAuthorization}"/>
-</div>
 
 </body>
 </html>

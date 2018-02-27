@@ -56,9 +56,6 @@
 <hr>
 <a href="/"><spring:message code="forReturnToAuthorizationPage"/></a>
 <hr>
-<div class="reg-errors">
-    <spring:message code="${informationLoginExistRegistration}"/>
-</div>
 
 </body>
 </html>

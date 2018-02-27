@@ -58,4 +58,13 @@ public class UserDao implements UserDaoInterface {
         }
         return null;
     }
+
+    public boolean checkIsPasswordCorrect(String userlogin, String password) {
+        String userHQL = "FROM UserEntity WHERE user_login = :login AND user_password = :password";
+        org.hibernate.query.Query query = sessionFactory.getCurrentSession().createQuery(userHQL);
+        query.setParameter("login", userlogin);
+        query.setParameter("password", password);
+        return query.list().size()>0;
+    }
+
 }

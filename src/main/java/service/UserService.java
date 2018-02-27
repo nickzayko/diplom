@@ -30,4 +30,8 @@ public class UserService implements UserServiceInterface {
     public UserEntity getUser(int userId) {
         return userDao.getUser(userId);
     }
+
+    public boolean checkIsPasswordCorrect(String userLogin, String userPassword) {
+        return userDao.checkIsPasswordCorrect(userLogin, userPassword);
+    }
 }

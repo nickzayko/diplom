@@ -32,7 +32,6 @@ public class AuthorizationController {
             return "mainPage";
         } else {
             model.addAttribute("userEntity", new UserEntity());
-            model.addAttribute("informationAuthorization", "emptyString");
             return "index";
         }
     }
@@ -42,26 +41,15 @@ public class AuthorizationController {
                                 @ModelAttribute("userEntity") UserEntity userEntity, BindingResult result) {
         authorizationValidator.validate(userEntity, result);
         if (result.hasErrors()) {
-            model.addAttribute("informationAuthorization", "emptyString");
             return "index";
         } else {
-            if (userService.checkIsLoginExist(userEntity.getUserLogin())) {
-                userEntity = userService.findPassword(userEntity.getUserLogin(), userEntity.getUserPassword());
-                if (userEntity != null) {
-                    session.setAttribute("userId", userEntity.getIdUser());
-                    session.setAttribute("userName", userEntity.getUserName());
-                    userEntity = userService.getUser(userEntity.getIdUser());
-                    model.addAttribute(userEntity);
-                    model.addAttribute("topicEntity", new TopicEntity());
-                    return "mainPage";
-                } else {
-                    model.addAttribute("informationAuthorization", "wrongPassword");
-                    return "index";
-                }
-            } else {
-                model.addAttribute("informationAuthorization", "doNotExistUser");
-                return "index";
-            }
+            userEntity = userService.findPassword(userEntity.getUserLogin(), userEntity.getUserPassword());
+            session.setAttribute("userId", userEntity.getIdUser());
+            session.setAttribute("userName", userEntity.getUserName());
+            userEntity = userService.getUser(userEntity.getIdUser());
+            model.addAttribute(userEntity);
+            model.addAttribute("topicEntity", new TopicEntity());
+            return "mainPage";
         }
     }
 

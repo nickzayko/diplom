@@ -60,8 +60,6 @@ ${userEntity.userEmail}
 ${userEntity.userLogin}
 ${userEntity.userPassword}
 <hr>
-<div class="reg-errors">
-    ${informationMainPage}
-</div>
+
 </body>
 </html>

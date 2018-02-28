@@ -39,7 +39,7 @@ public class ChatController {
     private ValidationOfMessageText validationOfMessageText;
 
     @RequestMapping(value = "/showMenu", method = RequestMethod.GET)
-    public String showMenu(Model model, HttpSession session){
+    public String showMenu(Model model, HttpSession session) {
         UserEntity userEntity = userService.getUser((Integer) session.getAttribute("userId"));
         model.addAttribute(userEntity);
         model.addAttribute("topicEntity", new TopicEntity());
@@ -66,19 +66,14 @@ public class ChatController {
         if (result.hasErrors()) {
             return "mainPage";
         } else {
-            if (chatService.isTopicExist(topicEntity.getTopicName())) {
-                model.addAttribute("informationMainPage", "такая тема создана");
-                return "mainPage";
+            if (session.getAttribute("userId") != null && session.getAttribute("userName") != null) {
+                topicEntity.setUserEntity(userService.getUser((Integer) session.getAttribute("userId")));
+                chatService.createNewTopic(topicEntity);
+                session.setAttribute("topicId", topicEntity.getIdTopic());
+                sendToPageInformationAboutChat(topicEntity, model);
+                return "chatPage";
             } else {
-                if (session.getAttribute("userId") != null && session.getAttribute("userName") != null) {
-                    topicEntity.setUserEntity(userService.getUser((Integer) session.getAttribute("userId")));
-                    chatService.createNewTopic(topicEntity);
-                    session.setAttribute("topicId", topicEntity.getIdTopic());
-                    sendToPageInformationAboutChat(topicEntity, model);
-                    return "chatPage";
-                } else {
-                    return "mainPage";
-                }
+                return "mainPage";
             }
         }
     }

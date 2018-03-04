@@ -3,6 +3,7 @@ package entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "messages")
@@ -25,6 +26,9 @@ public class MessageEntity {
     @ManyToOne
     @JoinColumn(name = "topic_id")
     private TopicEntity topicEntity;
+
+    @Column(name = "localeDateTime")
+    private LocalDateTime localDateTime;
 
     public int getIdMessage() {
         return idMessage;
@@ -58,13 +62,22 @@ public class MessageEntity {
         this.topicEntity = topicEntity;
     }
 
-    public MessageEntity(String textOfMessage, UserEntity userEntity, TopicEntity topicEntity) {
-        this.textOfMessage = textOfMessage;
-        this.userEntity = userEntity;
-        this.topicEntity = topicEntity;
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
     }
 
     public MessageEntity() {
+    }
+
+    public MessageEntity(String textOfMessage, UserEntity userEntity, TopicEntity topicEntity, LocalDateTime localDateTime) {
+        this.textOfMessage = textOfMessage;
+        this.userEntity = userEntity;
+        this.topicEntity = topicEntity;
+        this.localDateTime = localDateTime;
     }
 
     @Override

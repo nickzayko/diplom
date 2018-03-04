@@ -28,6 +28,7 @@ CREATE TABLE diploma_project.messages (
   text_of_message VARCHAR(250) NOT NULL,
   user_id INT NOT NULL,
   topic_id INT NOT NULL,
+  localeDateTime DATETIME NOT NULL,
   PRIMARY KEY (id_messages))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;

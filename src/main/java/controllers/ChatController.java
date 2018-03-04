@@ -15,7 +15,9 @@ import service.UserService;
 import validators.NewTopicValidation;
 import validators.ValidationOfMessageText;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class ChatController {
         return "mainPage";
     }
 
-    //создание нового чата и переход в него..............
+    //создание нового чата и переход в него................................................
     @RequestMapping(value = "/createTopic", method = RequestMethod.GET)
     public String createNewTopic(Model model, HttpSession session) {
         if (session.getAttribute("topicId") != null) {
@@ -130,6 +132,7 @@ public class ChatController {
         session.setAttribute("topicId", topicEntity.getIdTopic());
         sendToPageInformationAboutChat(topicEntity, model);
         getMessagesForChat(session, model);
+        session.setAttribute("numberOfPages", 0);
         return "chatPage";
     }
     //..............................................................................................
@@ -149,32 +152,48 @@ public class ChatController {
         validationOfMessageText.validate(messageEntity, result);
         UserEntity userEntity = userService.getUser((Integer) session.getAttribute("userId"));
         TopicEntity topicEntity = chatService.getTopicById((Integer) session.getAttribute("topicId"));
+        LocalDateTime localDateTime = LocalDateTime.now();
         messageEntity.setUserEntity(userEntity);
         messageEntity.setTopicEntity(topicEntity);
+        messageEntity.setLocalDateTime(localDateTime);
         model.addAttribute("topicName", topicEntity.getTopicName());
         model.addAttribute("topicCreator", topicEntity.getUserEntity().getUserName());
+        session.setAttribute("numberOfPages", 0);
         if (!result.hasErrors()) {
             messageService.saveMessage(messageEntity);
         }
         getMessagesForChat(session, model);
+
         return "chatPage";
     }
 
-    //------Для ajax------обновление сообщений-------------
+    //для выборки предыдущих сообщений............................................................
     @ResponseBody
-    @RequestMapping(value = "/updateMessages", produces = "application/json")
-    public List updateMessages(HttpSession session, Model model) {
-        List messagesDTOList = new ArrayList();
-        List messageEntityList = messageService.getMessagesByTopicId((Integer) session.getAttribute("topicId"));
-        for (int i = 0; i < messageEntityList.size(); i++) {
-            MessageDTO messageDTO = new MessageDTO();
-            messageDTO.setTextOfMessage(((MessageEntity) messageEntityList.get(i)).getTextOfMessage());
-            messageDTO.setUserName(((MessageEntity) messageEntityList.get(i)).getUserEntity().getUserName());
-            messagesDTOList.add(messageDTO);
-        }
-        return messagesDTOList;
+    @RequestMapping(value = "/loadPreviousMessages", produces = "application/json", method = RequestMethod.GET)
+    public List loadPreviousMessages(Model model, HttpSession session) {
+        TopicEntity topicEntity = getTopicEntityById(session);
+        List previousMessages = messageService.getPreviousMessages(topicEntity, session);
+        return getMessagesDTOList(previousMessages);
     }
     //...........................................................................................
+
+    //...........сервер для выборки новых сообщений............................................
+    @ResponseBody
+    @RequestMapping(value = "/findNewMessages", produces = "application/json")
+    public List findNewMessages(HttpSession session, HttpServletRequest request) {
+
+        LocalDateTime time = LocalDateTime.parse(request.getParameter("time"));
+        if (time != null) {
+            TopicEntity topicEntity = getTopicEntityById(session);
+            List newMessages = messageService.getNewMessages(topicEntity, time);
+            return getMessagesDTOList(newMessages);
+        }
+        return null;
+    }
+    //.........................................................................................
+
+
+    //    ниже идут общие методы, которые вынес....................................................
 
     private void sendToPageInformationAboutChat(TopicEntity topicEntity, Model model) {
         model.addAttribute("topicName", topicEntity.getTopicName());
@@ -183,8 +202,30 @@ public class ChatController {
     }
 
     private void getMessagesForChat(HttpSession session, Model model) {
-        List messageEntityList = messageService.getMessagesByTopicId((Integer) session.getAttribute("topicId"));
-        model.addAttribute("messagesList", messageEntityList);
+        TopicEntity topicEntity = getTopicEntityById(session);
+        List messageEntityList = messageService.getMessagesByTopicEntity(topicEntity);
+        if (messageEntityList.size() > 0) {
+            model.addAttribute("messagesList", messageEntityList);
+            MessageEntity messageEntity = (MessageEntity) messageEntityList.get(messageEntityList.size() - 1);
+            model.addAttribute("lastMessageTime", messageEntity.getLocalDateTime());
+        }
     }
+
+    private TopicEntity getTopicEntityById(HttpSession session) {
+        return chatService.getTopicById((Integer) session.getAttribute("topicId"));
+    }
+
+    private List getMessagesDTOList(List listOfMessages) {
+        List messagesDTOList = new ArrayList();
+        for (int i = 0; i < listOfMessages.size(); i++) {
+            MessageDTO messageDTO = new MessageDTO();
+            messageDTO.setTextOfMessage(((MessageEntity) listOfMessages.get(i)).getTextOfMessage());
+            messageDTO.setUserName(((MessageEntity) listOfMessages.get(i)).getUserEntity().getUserName());
+            messagesDTOList.add(messageDTO);
+        }
+        return messagesDTOList;
+    }
+    //.............................................................................................................
+
 
 }

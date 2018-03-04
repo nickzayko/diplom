@@ -64,7 +64,7 @@ public class UserDao implements UserDaoInterface {
         org.hibernate.query.Query query = sessionFactory.getCurrentSession().createQuery(userHQL);
         query.setParameter("login", userlogin);
         query.setParameter("password", password);
-        return query.list().size()>0;
+        return query.list().size() > 0;
     }
 
 }

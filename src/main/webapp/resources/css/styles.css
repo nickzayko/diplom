@@ -76,15 +76,80 @@
     width: 100%; /* Ширина слоя */
 }
 
+
+.tableAndButtonToViewPreviousMessages{
+    width: 860px;
+}
+
+.leftBlock{
+    float: left;
+    width: 600px;
+}
+
+.rightBlock{
+    float: right;
+    width: 260px;
+}
+
 .tableMessagesHeader{
-    width: 35%;
+    width:400px;
+}
+
+.tableScriptAndMessages{
+    width:600px;
+    height:240px;
+    overflow:auto;
+}
+
+.tableMessages{
 
 }
 
-.somediv{
-    width: 35%;
-    height: 250px;
-    overflow: auto;
+.trInTableMessages{
 
 }
+
+.tdFirstInTableMessages{
+    width:200px;
+}
+
+.tdSecondInTableMessages{
+    width:400px;
+}
+
+
+
+/*.tableMessagesHeader{*/
+    /*width: 480px;*/
+
+/*}*/
+
+/*!*.somediv{*!*/
+    /*!*!*width: 500px;*!*!*/
+    /*!*!*height: 250px;*!*!*/
+    /*!*!*overflow: auto;*!*!*/
+/*!*}*!*/
+
+/*.tableScriptAndMessages{*/
+    /*width: 500px;*/
+    /*height: 250px;*/
+    /*overflow: auto;*/
+
+/*}*/
+
+/*.wrapper{*/
+    /*width: 740px;*/
+
+/*}*/
+/*.leftBlock{*/
+    /*float: left;*/
+    /*width: 450px;*/
+/*}*/
+/*.rightBlock{*/
+    /*float: right;*/
+/*}*/
+
+/*.table2{*/
+    /*width: 600px;*/
+/*}*/
 

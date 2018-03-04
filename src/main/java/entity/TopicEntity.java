@@ -46,6 +46,7 @@ public class TopicEntity {
     public void setMessageEntityListForTopics(List<MessageEntity> messageEntityListForTopics) {
         this.messageEntityListForTopics = messageEntityListForTopics;
     }
+
     public int getIdTopic() {
         return idTopic;
     }

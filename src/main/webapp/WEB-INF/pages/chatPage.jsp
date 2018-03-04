@@ -10,28 +10,50 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 
+    <%--для обновления отправленных другими пользователями сообщений--%>
     <script>
-
         $(document).ready(function () {
             setInterval(updateMessage, 1000);
         });
 
         function updateMessage() {
             $.ajax({
-                url: "/menu/updateMessages",
+                url: "/menu/findNewMessages",
+                data: "time=${lastMessageTime}",
                 dataType: "json",
                 success: function (json) {
-                    $("#somediv").html('');
-                    var $table = $("<table>").appendTo($("#somediv"));
+                    $("#newMessages").html('');
+                    var $table1 = $("<table>").appendTo($("#newMessages"));
                     $.each(json, function (index, messageDTO) {
-                        $("<tr>").appendTo($table)
-                            .append($("<td width='235px' align='center'>").text(messageDTO.userName))
-                            .append($("<td align='left' >").text(messageDTO.textOfMessage))
+                        $("<tr class='trInTableMessages'>").appendTo($table1)
+                            .append($("<td align='center' class='tdFirstInTableMessages'>").text(messageDTO.userName))
+                            .append($("<td class='tdSecondInTableMessages' >").text(messageDTO.textOfMessage))
                     })
                 }
             })
         }
     </script>
+
+    <%--скрипт для показа предыдущих сообщений--%>
+    <script>
+        $(document).ready(function () {
+            $("#buttonShowPreviousMessages").click(function () {
+                $.ajax({
+                    url: "/menu/loadPreviousMessages",
+                    dataType: "json",
+                    success: function (json) {
+                        var $table = $("<table>").prependTo($("#somediv"));
+                        $.each(json, function (index, messageDTO) {
+                            $("<tr class='trInTableMessages'>").prependTo($table)
+                                .append($("<td align='center' class='tdFirstInTableMessages'>").text(messageDTO.userName))
+                                .append($("<td class='tdSecondInTableMessages'>").text(messageDTO.textOfMessage))
+                        })
+                    }
+                })
+            })
+        })
+    </script>
+    <%--..................................................--%>
 
 </head>
 <body>
@@ -56,28 +78,55 @@
 </table>
 <hr>
 
-<table class="tableMessagesHeader">
-    <tr>
-        <spring:message code="headOfTableAuthorOfMessage" var="authotOfMessage"></spring:message>
-        <td align="center">${authotOfMessage}</td>
-        <spring:message code="headOfTableTextOfMessage" var="textOfMessage"></spring:message>
-        <td align="left">${textOfMessage}</td>
-    </tr>
-</table>
+<div class="tableAndButtonToViewPreviousMessages">
 
-<div id="somediv" class="somediv">
-    <table>
-        <c:forEach var="message" items="${messagesList}">
+    <div class="leftBlock">
+        <table class="tableMessagesHeader">
             <tr>
-                <td width='235px' align='center'>
-                        ${message.getUserEntity().getUserName()}
-                </td>
-                <td align='left'>
-                        ${message.getTextOfMessage()}
+                <spring:message code="headOfTableAuthorOfMessage" var="authotOfMessage"></spring:message>
+                <td align="center">${authotOfMessage}</td>
+                <spring:message code="headOfTableTextOfMessage" var="textOfMessage"></spring:message>
+                <td align="left">${textOfMessage}</td>
+            </tr>
+        </table>
+
+        <div class="tableScriptAndMessages">
+
+            <%--предыдущие сообщения--%>
+            <div id="somediv" class="tableMessages"></div>
+
+            <%--отправленные сообщения--%>
+            <div class="tableMessages">
+                <table>
+                    <c:forEach var="message" items="${messagesList}">
+                        <tr class="trInTableMessages">
+                            <td align="center" class="tdFirstInTableMessages">
+                                    ${message.getUserEntity().getUserName()}
+                            </td>
+                            <td class="tdSecondInTableMessages">
+                                    ${message.getTextOfMessage()}
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
+            <div id="newMessages" class="tableMessages"></div>
+        </div>
+    </div>
+
+    <div class="rightBlock">
+        <table>
+            <tr>
+                <td>
+
+                    <%--подгрузка предыдущих сообщений--%>
+                    <spring:message code="buttonShowPreviousMessages" var="previousMessages"/>
+                    <button id="buttonShowPreviousMessages">${previousMessages}</button>
+
                 </td>
             </tr>
-        </c:forEach>
-    </table>
+        </table>
+    </div>
 </div>
 
 <div class="footer">
@@ -95,6 +144,7 @@
             <input type="reset" value="${clearMessage}">
         </div>
     </springForm:form>
+
     <div class="form-row2">
         <a href="/">
             <spring:message code="buttonReturnToMenu" var="returnToMenu"/>

@@ -146,28 +146,31 @@ public class ChatController {
         return "chatPage";
     }
 
-    @RequestMapping(value = "/messageHandler", method = RequestMethod.POST)
-    public String messageHandler(Model model, HttpSession session,
-                                 @ModelAttribute("messageEntity") MessageEntity messageEntity, BindingResult result) {
-        validationOfMessageText.validate(messageEntity, result);
+    //    блок обработки отрправленных сообщением, для аякса..................................................
+    @ResponseBody
+    @RequestMapping(value = "/messageHandler", method = RequestMethod.GET, produces = "application/json")
+    public MessageDTO messageHandler(Model model, HttpSession session,
+                                     @RequestParam("text") String text) {
         UserEntity userEntity = userService.getUser((Integer) session.getAttribute("userId"));
         TopicEntity topicEntity = chatService.getTopicById((Integer) session.getAttribute("topicId"));
         LocalDateTime localDateTime = LocalDateTime.now();
+        MessageEntity messageEntity = new MessageEntity();
         messageEntity.setUserEntity(userEntity);
         messageEntity.setTopicEntity(topicEntity);
         messageEntity.setLocalDateTime(localDateTime);
         model.addAttribute("topicName", topicEntity.getTopicName());
         model.addAttribute("topicCreator", topicEntity.getUserEntity().getUserName());
         session.setAttribute("numberOfPages", 0);
-        if (!result.hasErrors()) {
-            messageService.saveMessage(messageEntity);
-        }
-        getMessagesForChat(session, model);
-
-        return "chatPage";
+        messageEntity.setTextOfMessage(text);
+        messageService.saveMessage(messageEntity);
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setUserName(messageEntity.getUserEntity().getUserName());
+        messageDTO.setTextOfMessage(messageEntity.getTextOfMessage());
+        return messageDTO;
     }
+    //    ..................................................................................................
 
-    //для выборки предыдущих сообщений............................................................
+    //......для выборки предыдущих сообщений............................................................
     @ResponseBody
     @RequestMapping(value = "/loadPreviousMessages", produces = "application/json", method = RequestMethod.GET)
     public List loadPreviousMessages(Model model, HttpSession session) {
@@ -193,8 +196,7 @@ public class ChatController {
     //.........................................................................................
 
 
-    //    ниже идут общие методы, которые вынес....................................................
-
+    //    ниже представлены общие методы, которые вынес....................................................
     private void sendToPageInformationAboutChat(TopicEntity topicEntity, Model model) {
         model.addAttribute("topicName", topicEntity.getTopicName());
         model.addAttribute("topicCreator", topicEntity.getUserEntity().getUserName());

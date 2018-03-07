@@ -55,6 +55,37 @@
     </script>
     <%--..................................................--%>
 
+    <%--скрипт для отправки сообщений--%>
+    <script>
+        $(document).ready(function () {
+            $("#buttonSendMessage").click(function () {
+                var text = $("#messageText").val();
+                if ((text.trim()).length > 0) {
+                    $("#divMessageText").text(' ');
+                    $("<textarea id='messageText' class='textArea' cols='50' rows='5'>").appendTo($("#divMessageText"));
+                    sendText(text);
+                }
+
+                function sendText(text) {
+                    $.ajax({
+                        url: '/menu/messageHandler',
+                        data: "text=" + text,
+                        dataType: "json",
+                        success: function (json) {
+                            var $table = $("<table>").prependTo($("#newMessages"));
+                            $.each(json, function (index, messageDTO) {
+                                $("<tr class='trInTableMessages'>").appendTo($table)
+                                    .append($("<td align='center' class='tdFirstInTableMessages'>").text(messageDTO.userName))
+                                    .append($("<td class='tdSecondInTableMessages'>").text(messageDTO.textOfMessage))
+                            })
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+    <%--..................................................--%>
+
 </head>
 <body>
 
@@ -95,7 +126,7 @@
             <%--предыдущие сообщения--%>
             <div id="somediv" class="tableMessages"></div>
 
-            <%--отправленные сообщения--%>
+            <%--стартовые сообщения--%>
             <div class="tableMessages">
                 <table>
                     <c:forEach var="message" items="${messagesList}">
@@ -110,7 +141,10 @@
                     </c:forEach>
                 </table>
             </div>
+
+            <%--отправленные сообщения--%>
             <div id="newMessages" class="tableMessages"></div>
+
         </div>
     </div>
 
@@ -129,28 +163,30 @@
     </div>
 </div>
 
+
+<%--отправка сообщений--%>
 <div class="footer">
-    <springForm:form action="/menu/messageHandler" method="post" commandName="messageEntity">
-        <div class="textArea">
-            <textarea name="textOfMessage" cols="50" rows="5"></textarea>
-            <springForm:errors cssClass="reg-errors" path="textOfMessage"/>
-        </div>
+    <form id="form">
+        <div id="divMessageText"><textarea id="messageText" class="textArea" cols="50" rows="5"></textarea></div>
+
         <div class="form-row1">
+
             <spring:message code="buttonSendMessage" var="sendMessage"/>
-            <input type="submit" value="${sendMessage}">
-        </div>
-        <div class="form-row1">
+            <input id="buttonSendMessage" type="button" value="${sendMessage}">
             <spring:message code="buttonClearMessage" var="clearMessage"/>
             <input type="reset" value="${clearMessage}">
         </div>
-    </springForm:form>
+    </form>
 
-    <div class="form-row2">
-        <a href="/">
-            <spring:message code="buttonReturnToMenu" var="returnToMenu"/>
-            <button>${returnToMenu}</button>
-        </a>
-    </div>
+</div>
+
+
+<div class="form-row2">
+    <a href="/">
+        <spring:message code="buttonReturnToMenu" var="returnToMenu"/>
+        <button>${returnToMenu}</button>
+    </a>
+</div>
 </div>
 
 </body>

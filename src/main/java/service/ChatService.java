@@ -1,45 +1,22 @@
 package service;
 
-import dao.ChatDao;
 import entity.TopicEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("chatService")
-public class ChatService implements ChatServiceInterface {
+public interface ChatService {
+    void createNewTopic(TopicEntity topicEntity);
 
-    @Autowired
-    private ChatDao chatDao;
+    boolean isTopicExist(String topicName);
 
+    List findChats(String findChatParam);
 
-    public void createNewTopic(TopicEntity topicEntity) {
-        chatDao.createNewTopic(topicEntity);
-    }
+    List showAllChats();
 
-    public boolean isTopicExist(String topicName) {
-        return chatDao.isTopicExist(topicName);
-    }
+    List showMyChats(int idUser);
 
-    public List findChats(String findChatParam) {
-        return chatDao.findChats(findChatParam);
-    }
+    TopicEntity getTopicByName(String requestParam);
 
-    public List showAllChats() {
-        return chatDao.showAllChats();
-    }
+    TopicEntity getTopicById(int topicId);
 
-    public List showMyChats(int idUser) {
-        return chatDao.showMyChats(idUser);
-    }
-
-
-    public TopicEntity getTopicByName(String requestParam) {
-        return chatDao.getTopicByName(requestParam);
-    }
-
-    public TopicEntity getTopicById(int topicId) {
-        return chatDao.getTopicById(topicId);
-    }
 }

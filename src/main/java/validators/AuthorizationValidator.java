@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import service.UserService;
+import service.UserServiceImpl;
 
 @Component
 public class AuthorizationValidator implements Validator {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -25,10 +25,10 @@ public class AuthorizationValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userPassword", "emptyPassword");
         if (!errors.hasErrors()) {
             UserEntity user = (UserEntity) target;
-            if (!userService.checkIsLoginExist(user.getUserLogin())) {
+            if (!userServiceImpl.checkIsLoginExist(user.getUserLogin())) {
                 errors.rejectValue("userLogin", "doNotExistUser");
             } else {
-                if (!userService.checkIsPasswordCorrect(user.getUserLogin(), user.getUserPassword())) {
+                if (userServiceImpl.getUserByLoginAndPassword(user.getUserLogin(), user.getUserPassword()) == null) {
                     errors.rejectValue("userPassword", "wrongPassword");
                 }
             }

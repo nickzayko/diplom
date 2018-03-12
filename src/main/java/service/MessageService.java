@@ -1,36 +1,17 @@
 package service;
 
-import dao.MessageDao;
 import entity.MessageEntity;
 import entity.TopicEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
-public class MessageService implements MessageServiceInterface {
+public interface MessageService {
+    void saveMessage(MessageEntity messageEntity);
 
-    @Autowired
-    private MessageDao messageDao;
+    List getMessagesByTopicEntity(TopicEntity topicEntity);
 
-    public void saveMessage(MessageEntity messageEntity) {
-        messageDao.saveMessage(messageEntity);
-    }
+    List getPreviousMessages(TopicEntity topicEntity, Integer numberOfPages);
 
-    public List getMessagesByTopicEntity(TopicEntity topicEntity) {
-        return messageDao.getMessagesByTopicEntity(topicEntity);
-    }
-
-    @Override
-    public List getPreviousMessages(TopicEntity topicEntity, HttpSession session) {
-        return messageDao.getPreviousMessages(topicEntity, session);
-    }
-
-    @Override
-    public List getNewMessages(TopicEntity topicEntity, LocalDateTime currentTime) {
-        return messageDao.getNewMessages(topicEntity, currentTime);
-    }
+    List getNewMessages(TopicEntity topicEntity, LocalDateTime currentTime);
 }

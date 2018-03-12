@@ -1,6 +1,6 @@
 package controllers;
 
-import dao.UserDao;
+import dao.UserDaoImpl;
 import entity.TopicEntity;
 import entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import service.UserService;
+import service.UserServiceImpl;
 import validators.RegistrationValidator;
 
 import javax.servlet.http.HttpSession;
@@ -20,10 +20,10 @@ import javax.servlet.http.HttpSession;
 public class RegistrationController {
 
     @Autowired
-    public UserDao userDao;
+    public UserDaoImpl userDaoImpl;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
     private RegistrationValidator registrationValidator;
@@ -41,7 +41,7 @@ public class RegistrationController {
         if (result.hasErrors()) {
             return "registration";
         } else {
-            userService.createUser(userEntity);
+            userServiceImpl.createUser(userEntity);
             model.addAttribute("topicEntity", new TopicEntity());
             session.setAttribute("userId", userEntity.getIdUser());
             session.setAttribute("userName", userEntity.getUserName());

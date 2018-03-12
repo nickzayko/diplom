@@ -40,7 +40,7 @@
             <mvc:exclude-mapping path="/authorization"/>
             <mvc:exclude-mapping path="/registration"/>
             <mvc:exclude-mapping path="/menu/exit"/>
-            <bean class="controllers.InterceptorController"/>
+            <bean class="interceptors.Interceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

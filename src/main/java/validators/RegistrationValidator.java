@@ -1,19 +1,19 @@
 package validators;
 
-import entity.UserEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
-import service.UserService;
+        import entity.UserEntity;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.stereotype.Component;
+        import org.springframework.validation.Errors;
+        import org.springframework.validation.ValidationUtils;
+        import org.springframework.validation.Validator;
+        import service.UserServiceImpl;
 
 
 @Component
 public class RegistrationValidator implements Validator {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -30,10 +30,10 @@ public class RegistrationValidator implements Validator {
 
         if (!errors.hasErrors()) {
             UserEntity user = (UserEntity) object;
-            if (userService.checkIsEmailExist(user.getUserEmail())) {
+            if (userServiceImpl.checkIsEmailExist(user.getUserEmail())) {
                 errors.rejectValue("userEmail", "emailExist");
             } else {
-                if (userService.checkIsLoginExist(user.getUserLogin())) {
+                if (userServiceImpl.checkIsLoginExist(user.getUserLogin())) {
                     errors.rejectValue("userLogin", "loginExist");
                 }
             }

@@ -9,7 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import service.UserService;
+import service.UserServiceImpl;
 import validators.AuthorizationValidator;
 
 import javax.servlet.http.HttpSession;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 public class AuthorizationController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
     private AuthorizationValidator authorizationValidator;
@@ -26,7 +26,7 @@ public class AuthorizationController {
     @RequestMapping(value = "/authorization", method = RequestMethod.GET)
     public String authorization(Model model, HttpSession session) {
         if (session.getAttribute("userId") != null && session.getAttribute("userName") != null) {
-            UserEntity userEntity = userService.getUser((Integer) session.getAttribute("userId"));
+            UserEntity userEntity = userServiceImpl.getUser((Integer) session.getAttribute("userId"));
             model.addAttribute("userEntity", userEntity);
             model.addAttribute("topicEntity", new TopicEntity());
             return "mainPage";
@@ -43,10 +43,9 @@ public class AuthorizationController {
         if (result.hasErrors()) {
             return "index";
         } else {
-            userEntity = userService.findPassword(userEntity.getUserLogin(), userEntity.getUserPassword());
+            userEntity = userServiceImpl.getUserByLoginAndPassword(userEntity.getUserLogin(), userEntity.getUserPassword());
             session.setAttribute("userId", userEntity.getIdUser());
             session.setAttribute("userName", userEntity.getUserName());
-            userEntity = userService.getUser(userEntity.getIdUser());
             model.addAttribute(userEntity);
             model.addAttribute("topicEntity", new TopicEntity());
             return "mainPage";

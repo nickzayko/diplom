@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import service.ChatService;
-import service.MessageService;
-import service.UserService;
+import service.ChatServiceImpl;
+import service.MessageServiceImpl;
+import service.UserServiceImpl;
 import validators.NewTopicValidation;
 import validators.ValidationOfMessageText;
 
@@ -25,14 +25,17 @@ import java.util.List;
 @RequestMapping(value = "/menu")
 public class ChatController {
 
-    @Autowired
-    private ChatService chatService;
+    private final int ONE = 1;
+    private final int START = 0;
 
     @Autowired
-    private UserService userService;
+    private ChatServiceImpl chatServiceImpl;
 
     @Autowired
-    private MessageService messageService;
+    private UserServiceImpl userServiceImpl;
+
+    @Autowired
+    private MessageServiceImpl messageServiceImpl;
 
     @Autowired
     private NewTopicValidation topicValidation;
@@ -42,7 +45,7 @@ public class ChatController {
 
     @RequestMapping(value = "/showMenu", method = RequestMethod.GET)
     public String showMenu(Model model, HttpSession session) {
-        UserEntity userEntity = userService.getUser((Integer) session.getAttribute("userId"));
+        UserEntity userEntity = userServiceImpl.getUser((Integer) session.getAttribute("userId"));
         model.addAttribute(userEntity);
         model.addAttribute("topicEntity", new TopicEntity());
         return "mainPage";
@@ -52,7 +55,7 @@ public class ChatController {
     @RequestMapping(value = "/createTopic", method = RequestMethod.GET)
     public String createNewTopic(Model model, HttpSession session) {
         if (session.getAttribute("topicId") != null) {
-            TopicEntity topicEntity = chatService.getTopicById((Integer) session.getAttribute("topicId"));
+            TopicEntity topicEntity = chatServiceImpl.getTopicById((Integer) session.getAttribute("topicId"));
             sendToPageInformationAboutChat(topicEntity, model);
             return "chatPage";
         } else {
@@ -69,8 +72,8 @@ public class ChatController {
             return "mainPage";
         } else {
             if (session.getAttribute("userId") != null && session.getAttribute("userName") != null) {
-                topicEntity.setUserEntity(userService.getUser((Integer) session.getAttribute("userId")));
-                chatService.createNewTopic(topicEntity);
+                topicEntity.setUserEntity(userServiceImpl.getUser((Integer) session.getAttribute("userId")));
+                chatServiceImpl.createNewTopic(topicEntity);
                 session.setAttribute("topicId", topicEntity.getIdTopic());
                 sendToPageInformationAboutChat(topicEntity, model);
                 return "chatPage";
@@ -84,7 +87,7 @@ public class ChatController {
     //поиск чатов .........................................................
     @RequestMapping(value = "/findChat", method = RequestMethod.GET)
     public String findChat(HttpSession session, Model model) {
-        List listOfExistChats = chatService.findChats(String.valueOf(session.getAttribute("findChatParam")));
+        List listOfExistChats = chatServiceImpl.findChats(String.valueOf(session.getAttribute("findChatParam")));
         model.addAttribute("listOfExistChats", listOfExistChats);
         return "resultOfFindChats";
     }
@@ -92,7 +95,7 @@ public class ChatController {
     @RequestMapping(value = "/findChat", method = RequestMethod.POST)
     public String findChat(@RequestParam(name = "findChat") String findChatParam, Model model,
                            HttpSession session) {
-        List listOfExistChats = chatService.findChats(findChatParam);
+        List listOfExistChats = chatServiceImpl.findChats(findChatParam);
         model.addAttribute("listOfExistChats", listOfExistChats);
         session.setAttribute("findChatParam", findChatParam);
         return "resultOfFindChats";
@@ -101,7 +104,7 @@ public class ChatController {
     @RequestMapping(value = "/showMyChats", method = RequestMethod.GET)
     public String showMyChats(Model model, HttpSession session) {
         int idUser = (int) session.getAttribute("userId");
-        model.addAttribute("listOfExistChats", chatService.showMyChats(idUser));
+        model.addAttribute("listOfExistChats", chatServiceImpl.showMyChats(idUser));
         return "resultOfFindChats";
     }
     //............................................................................
@@ -119,7 +122,7 @@ public class ChatController {
     //переход в чат, по результатам поиска................................................
     @RequestMapping(value = "/goToChatPage", method = RequestMethod.GET)
     public String goToChatPage(Model model, HttpSession session) {
-        TopicEntity topicEntity = chatService.getTopicById((Integer) session.getAttribute("topicId"));
+        TopicEntity topicEntity = chatServiceImpl.getTopicById((Integer) session.getAttribute("topicId"));
         sendToPageInformationAboutChat(topicEntity, model);
         getMessagesForChat(session, model);
         return "chatPage";
@@ -128,11 +131,11 @@ public class ChatController {
     @RequestMapping(value = "/goToChatPage", method = RequestMethod.POST)
     public String goToChatPage(Model model, HttpSession session,
                                @RequestParam(name = "topic") String requestParam) {
-        TopicEntity topicEntity = chatService.getTopicByName(requestParam);
+        TopicEntity topicEntity = chatServiceImpl.getTopicByName(requestParam);
         session.setAttribute("topicId", topicEntity.getIdTopic());
         sendToPageInformationAboutChat(topicEntity, model);
         getMessagesForChat(session, model);
-        session.setAttribute("numberOfPages", 0);
+        session.setAttribute("numberOfPages", START);
         return "chatPage";
     }
     //..............................................................................................
@@ -140,7 +143,7 @@ public class ChatController {
     //обработчик сообщений в чате....................................................................
     @RequestMapping(value = "/messageHandler", method = RequestMethod.GET)
     public String messageHandler(Model model, HttpSession session) {
-        TopicEntity topicEntity = chatService.getTopicById((Integer) session.getAttribute("topicId"));
+        TopicEntity topicEntity = chatServiceImpl.getTopicById((Integer) session.getAttribute("topicId"));
         sendToPageInformationAboutChat(topicEntity, model);
         getMessagesForChat(session, model);
         return "chatPage";
@@ -151,8 +154,8 @@ public class ChatController {
     @RequestMapping(value = "/messageHandler", method = RequestMethod.GET, produces = "application/json")
     public MessageDTO messageHandler(Model model, HttpSession session,
                                      @RequestParam("text") String text) {
-        UserEntity userEntity = userService.getUser((Integer) session.getAttribute("userId"));
-        TopicEntity topicEntity = chatService.getTopicById((Integer) session.getAttribute("topicId"));
+        UserEntity userEntity = userServiceImpl.getUser((Integer) session.getAttribute("userId"));
+        TopicEntity topicEntity = chatServiceImpl.getTopicById((Integer) session.getAttribute("topicId"));
         LocalDateTime localDateTime = LocalDateTime.now();
         MessageEntity messageEntity = new MessageEntity();
         messageEntity.setUserEntity(userEntity);
@@ -160,9 +163,9 @@ public class ChatController {
         messageEntity.setLocalDateTime(localDateTime);
         model.addAttribute("topicName", topicEntity.getTopicName());
         model.addAttribute("topicCreator", topicEntity.getUserEntity().getUserName());
-        session.setAttribute("numberOfPages", 0);
+        session.setAttribute("numberOfPages", START);
         messageEntity.setTextOfMessage(text);
-        messageService.saveMessage(messageEntity);
+        messageServiceImpl.saveMessage(messageEntity);
         MessageDTO messageDTO = new MessageDTO();
         messageDTO.setUserName(messageEntity.getUserEntity().getUserName());
         messageDTO.setTextOfMessage(messageEntity.getTextOfMessage());
@@ -173,9 +176,10 @@ public class ChatController {
     //......для выборки предыдущих сообщений............................................................
     @ResponseBody
     @RequestMapping(value = "/loadPreviousMessages", produces = "application/json", method = RequestMethod.GET)
-    public List loadPreviousMessages(Model model, HttpSession session) {
+    public List loadPreviousMessages(HttpSession session) {
         TopicEntity topicEntity = getTopicEntityById(session);
-        List previousMessages = messageService.getPreviousMessages(topicEntity, session);
+        session.setAttribute("numberOfPages", (Integer)session.getAttribute("numberOfPages") + ONE);
+        List previousMessages = messageServiceImpl.getPreviousMessages(topicEntity, (Integer)session.getAttribute("numberOfPages"));
         return getMessagesDTOList(previousMessages);
     }
     //...........................................................................................
@@ -188,7 +192,7 @@ public class ChatController {
         LocalDateTime time = LocalDateTime.parse(request.getParameter("time"));
         if (time != null) {
             TopicEntity topicEntity = getTopicEntityById(session);
-            List newMessages = messageService.getNewMessages(topicEntity, time);
+            List newMessages = messageServiceImpl.getNewMessages(topicEntity, time);
             return getMessagesDTOList(newMessages);
         }
         return null;
@@ -205,16 +209,16 @@ public class ChatController {
 
     private void getMessagesForChat(HttpSession session, Model model) {
         TopicEntity topicEntity = getTopicEntityById(session);
-        List messageEntityList = messageService.getMessagesByTopicEntity(topicEntity);
+        List messageEntityList = messageServiceImpl.getMessagesByTopicEntity(topicEntity);
         if (messageEntityList.size() > 0) {
             model.addAttribute("messagesList", messageEntityList);
-            MessageEntity messageEntity = (MessageEntity) messageEntityList.get(messageEntityList.size() - 1);
+            MessageEntity messageEntity = (MessageEntity) messageEntityList.get(messageEntityList.size() - ONE);
             model.addAttribute("lastMessageTime", messageEntity.getLocalDateTime());
         }
     }
 
     private TopicEntity getTopicEntityById(HttpSession session) {
-        return chatService.getTopicById((Integer) session.getAttribute("topicId"));
+        return chatServiceImpl.getTopicById((Integer) session.getAttribute("topicId"));
     }
 
     private List getMessagesDTOList(List listOfMessages) {

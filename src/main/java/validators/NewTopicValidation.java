@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import service.ChatService;
+import service.ChatServiceImpl;
 
 @Component
 public class NewTopicValidation implements Validator {
 
     @Autowired
-    private ChatService chatService;
+    private ChatServiceImpl chatServiceImpl;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -25,7 +25,7 @@ public class NewTopicValidation implements Validator {
 
         if (!errors.hasErrors()) {
             TopicEntity topic = (TopicEntity) target;
-            if (chatService.isTopicExist(topic.getTopicName())) {
+            if (chatServiceImpl.isTopicExist(topic.getTopicName())) {
                 errors.rejectValue("topicName", "thisChatExist");
             }
         }

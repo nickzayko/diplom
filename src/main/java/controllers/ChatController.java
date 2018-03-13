@@ -13,7 +13,6 @@ import service.ChatServiceImpl;
 import service.MessageServiceImpl;
 import service.UserServiceImpl;
 import validators.NewTopicValidation;
-import validators.ValidationOfMessageText;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -39,9 +38,6 @@ public class ChatController {
 
     @Autowired
     private NewTopicValidation topicValidation;
-
-    @Autowired
-    private ValidationOfMessageText validationOfMessageText;
 
     @RequestMapping(value = "/showMenu", method = RequestMethod.GET)
     public String showMenu(Model model, HttpSession session) {
@@ -71,15 +67,13 @@ public class ChatController {
         if (result.hasErrors()) {
             return "mainPage";
         } else {
-//            if (session.getAttribute("userId") != null && session.getAttribute("userName") != null) {
-                topicEntity.setUserEntity(userServiceImpl.getUser((Integer) session.getAttribute("userId")));
-                chatServiceImpl.createNewTopic(topicEntity);
-                session.setAttribute("topicId", topicEntity.getIdTopic());
-                sendToPageInformationAboutChat(topicEntity, model);
-                return "chatPage";
-//            } else {
-//                return "mainPage";
-//            }
+            topicEntity.setUserEntity(userServiceImpl.getUser((Integer) session.getAttribute("userId")));
+            chatServiceImpl.createNewTopic(topicEntity);
+            session.setAttribute("topicId", topicEntity.getIdTopic());
+            sendToPageInformationAboutChat(topicEntity, model);
+            LocalDateTime localDateTime = LocalDateTime.now();
+            model.addAttribute("lastMessageTime", localDateTime);
+            return "chatPage";
         }
     }
     //....................................................................
@@ -114,7 +108,6 @@ public class ChatController {
     public String exitFromApplication(HttpSession session, Model model) {
         session.invalidate();
         model.addAttribute("userEntity", new UserEntity());
-//        model.addAttribute("informationAuthorization", "emptyString");
         return "redirect:/authorization";
     }
     //....................................................................................
@@ -178,8 +171,8 @@ public class ChatController {
     @RequestMapping(value = "/loadPreviousMessages", produces = "application/json", method = RequestMethod.GET)
     public List loadPreviousMessages(HttpSession session) {
         TopicEntity topicEntity = getTopicEntityById(session);
-        session.setAttribute("numberOfPages", (Integer)session.getAttribute("numberOfPages") + ONE);
-        List previousMessages = messageServiceImpl.getPreviousMessages(topicEntity, (Integer)session.getAttribute("numberOfPages"));
+        session.setAttribute("numberOfPages", (Integer) session.getAttribute("numberOfPages") + ONE);
+        List previousMessages = messageServiceImpl.getPreviousMessages(topicEntity, (Integer) session.getAttribute("numberOfPages"));
         return getMessagesDTOList(previousMessages);
     }
     //...........................................................................................
@@ -188,7 +181,6 @@ public class ChatController {
     @ResponseBody
     @RequestMapping(value = "/findNewMessages", produces = "application/json")
     public List findNewMessages(HttpSession session, HttpServletRequest request) {
-
         LocalDateTime time = LocalDateTime.parse(request.getParameter("time"));
         if (time != null) {
             TopicEntity topicEntity = getTopicEntityById(session);

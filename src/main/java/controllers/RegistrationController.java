@@ -45,7 +45,6 @@ public class RegistrationController {
             model.addAttribute("topicEntity", new TopicEntity());
             session.setAttribute("userId", userEntity.getIdUser());
             session.setAttribute("userName", userEntity.getUserName());
-//            return "mainPage";
             return "redirect:/menu/showMenu";
         }
     }

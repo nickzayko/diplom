@@ -49,7 +49,6 @@ public class UserDaoImpl implements UserDao {
             query.setParameter("user_id", userId);
             return (UserEntity) query.getSingleResult();
         } catch (NoResultException nre) {
-//            System.out.println("There are no find user.");
             LOGGER.error(messageSource.getMessage("userDaoImpl.findPassword", new Object[]{}, Locale.ENGLISH));
         }
         return null;
@@ -63,7 +62,6 @@ public class UserDaoImpl implements UserDao {
             query.setParameter("password", password);
             return (UserEntity) query.getSingleResult();
         } catch (NoResultException nre) {
-//            System.out.println("There are no find user.");
             LOGGER.error(messageSource.getMessage("userDaoImpl.findPassword", new Object[]{}, Locale.ENGLISH));
         }
         return null;

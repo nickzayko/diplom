@@ -24,16 +24,9 @@ public class AuthorizationController {
     private AuthorizationValidator authorizationValidator;
 
     @RequestMapping(value = "/authorization", method = RequestMethod.GET)
-    public String authorization(Model model, HttpSession session) {
-//        if (session.getAttribute("userId") != null && session.getAttribute("userName") != null) {
-//            UserEntity userEntity = userServiceImpl.getUser((Integer) session.getAttribute("userId"));
-//            model.addAttribute("userEntity", userEntity);
-//            model.addAttribute("topicEntity", new TopicEntity());
-//            return "mainPage";
-//        } else {
-            model.addAttribute("userEntity", new UserEntity());
-            return "index";
-//        }
+    public String authorization(Model model) {
+        model.addAttribute("userEntity", new UserEntity());
+        return "index";
     }
 
     @RequestMapping(value = "/authorization", method = RequestMethod.POST)
@@ -48,7 +41,6 @@ public class AuthorizationController {
             session.setAttribute("userName", userEntity.getUserName());
             model.addAttribute(userEntity);
             model.addAttribute("topicEntity", new TopicEntity());
-//            return "mainPage";
             return "redirect:/menu/showMenu";
         }
     }

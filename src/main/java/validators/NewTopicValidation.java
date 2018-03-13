@@ -22,7 +22,6 @@ public class NewTopicValidation implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "topicName", "emptyNewTopicName");
-
         if (!errors.hasErrors()) {
             TopicEntity topic = (TopicEntity) target;
             if (chatServiceImpl.isTopicExist(topic.getTopicName())) {

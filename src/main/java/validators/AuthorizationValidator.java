@@ -21,16 +21,17 @@ public class AuthorizationValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
+        UserEntity user = (UserEntity) target;
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userLogin", "emptyLogin");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userPassword", "emptyPassword");
-        if (!errors.hasErrors()) {
-            UserEntity user = (UserEntity) target;
+        if (!errors.hasFieldErrors("userLogin")) {
             if (!userServiceImpl.checkIsLoginExist(user.getUserLogin())) {
                 errors.rejectValue("userLogin", "doNotExistUser");
-            } else {
-                if (userServiceImpl.getUserByLoginAndPassword(user.getUserLogin(), user.getUserPassword()) == null) {
-                    errors.rejectValue("userPassword", "wrongPassword");
-                }
+            }
+        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userPassword", "emptyPassword");
+        if (!errors.hasFieldErrors("userPassword")) {
+            if (userServiceImpl.getUserByLoginAndPassword(user.getUserLogin(), user.getUserPassword()) == null) {
+                errors.rejectValue("userPassword", "wrongPassword");
             }
         }
     }

@@ -114,8 +114,8 @@ public class ChatController {
     public String exitFromApplication(HttpSession session, Model model) {
         session.invalidate();
         model.addAttribute("userEntity", new UserEntity());
-        model.addAttribute("informationAuthorization", "emptyString");
-        return "index";
+//        model.addAttribute("informationAuthorization", "emptyString");
+        return "redirect:/authorization";
     }
     //....................................................................................
 

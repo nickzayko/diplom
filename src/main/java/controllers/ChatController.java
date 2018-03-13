@@ -71,15 +71,15 @@ public class ChatController {
         if (result.hasErrors()) {
             return "mainPage";
         } else {
-            if (session.getAttribute("userId") != null && session.getAttribute("userName") != null) {
+//            if (session.getAttribute("userId") != null && session.getAttribute("userName") != null) {
                 topicEntity.setUserEntity(userServiceImpl.getUser((Integer) session.getAttribute("userId")));
                 chatServiceImpl.createNewTopic(topicEntity);
                 session.setAttribute("topicId", topicEntity.getIdTopic());
                 sendToPageInformationAboutChat(topicEntity, model);
                 return "chatPage";
-            } else {
-                return "mainPage";
-            }
+//            } else {
+//                return "mainPage";
+//            }
         }
     }
     //....................................................................

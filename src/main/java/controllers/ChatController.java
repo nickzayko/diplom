@@ -49,15 +49,9 @@ public class ChatController {
 
     //создание нового чата и переход в него................................................
     @RequestMapping(value = "/createTopic", method = RequestMethod.GET)
-    public String createNewTopic(Model model, HttpSession session) {
-        if (session.getAttribute("topicId") != null) {
-            TopicEntity topicEntity = chatServiceImpl.getTopicById((Integer) session.getAttribute("topicId"));
-            sendToPageInformationAboutChat(topicEntity, model);
-            return "chatPage";
-        } else {
-            model.addAttribute("topicEntity", new TopicEntity());
-            return "mainPage";
-        }
+    public String createNewTopic(Model model) {
+        model.addAttribute("topicEntity", new TopicEntity());
+        return "mainPage";
     }
 
     @RequestMapping(value = "/createTopic", method = RequestMethod.POST)
@@ -71,9 +65,8 @@ public class ChatController {
             chatServiceImpl.createNewTopic(topicEntity);
             session.setAttribute("topicId", topicEntity.getIdTopic());
             sendToPageInformationAboutChat(topicEntity, model);
-            LocalDateTime localDateTime = LocalDateTime.now();
-            model.addAttribute("lastMessageTime", localDateTime);
-            return "chatPage";
+            getMessagesForChat(session, model);
+            return "redirect:/menu/goToChatPage";
         }
     }
     //....................................................................
@@ -206,6 +199,9 @@ public class ChatController {
             model.addAttribute("messagesList", messageEntityList);
             MessageEntity messageEntity = (MessageEntity) messageEntityList.get(messageEntityList.size() - ONE);
             model.addAttribute("lastMessageTime", messageEntity.getLocalDateTime());
+        } else {
+            LocalDateTime currentTime = LocalDateTime.now();
+            model.addAttribute("lastMessageTime", currentTime);
         }
     }
 

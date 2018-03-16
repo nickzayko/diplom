@@ -111,15 +111,6 @@
       <version>${commons-io.version}</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.springframework/spring-mock -->
-    <!--<dependency>-->
-      <!--<groupId>org.springframework</groupId>-->
-      <!--<artifactId>spring-mock</artifactId>-->
-      <!--<version>${org.springframework.version}</version>-->
-    <!--</dependency>-->
-
-
-
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
@@ -132,25 +123,6 @@
       <artifactId>validation-api</artifactId>
       <version>${javax.validation.version}</version>
     </dependency>
-
-    <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate/hibernate-validator &ndash;&gt;-->
-    <!--<dependency>-->
-      <!--<groupId>org.hibernate</groupId>-->
-      <!--<artifactId>hibernate-validator</artifactId>-->
-      <!--<version>4.0.2.GA</version>-->
-    <!--</dependency>-->
-
-    <!--<dependency>-->
-      <!--<groupId>commons-validator</groupId>-->
-      <!--<artifactId>commons-validator</artifactId>-->
-      <!--<version>1.4.0</version>-->
-    <!--</dependency>-->
-
-    <!--<dependency>-->
-      <!--<groupId>javax.validation</groupId>-->
-      <!--<artifactId>validation-api</artifactId>-->
-      <!--<version>1.1.0.Final</version>-->
-    <!--</dependency>-->
 
      <!--https://mvnrepository.com/artifact/commons-codec/commons-codec-->
     <dependency>

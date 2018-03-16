@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -45,7 +46,7 @@ public class MessageDaoImpl implements MessageDao {
             criteria.setMaxResults(STEP);
             return criteria.list();
         } else {
-            return criteria.list();
+            return Collections.emptyList();
         }
     }
 

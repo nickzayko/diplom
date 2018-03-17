@@ -11,7 +11,7 @@ CREATE TABLE `diploma_project`.`users` (
   `user_email` VARCHAR(65) NOT NULL,
   `user_login` VARCHAR(65) NOT NULL,
   `user_password` VARCHAR(65) NOT NULL,
-  PRIMARY KEY (`id_users`))
+  PRIMARY KEY (`id_user`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 

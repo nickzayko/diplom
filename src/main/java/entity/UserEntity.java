@@ -3,6 +3,7 @@ package entity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -133,4 +134,24 @@ public class UserEntity {
         this.userPassword = userPassword;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserEntity that = (UserEntity) o;
+        return idUser == that.idUser &&
+                Objects.equals(topicEntityList, that.topicEntityList) &&
+                Objects.equals(messageEntityListForUsers, that.messageEntityListForUsers) &&
+                Objects.equals(userName, that.userName) &&
+                Objects.equals(userSurname, that.userSurname) &&
+                Objects.equals(userEmail, that.userEmail) &&
+                Objects.equals(userLogin, that.userLogin) &&
+                Objects.equals(userPassword, that.userPassword);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(topicEntityList, messageEntityListForUsers, idUser, userName, userSurname, userEmail, userLogin, userPassword);
+    }
 }

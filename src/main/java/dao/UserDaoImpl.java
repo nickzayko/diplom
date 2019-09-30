@@ -15,7 +15,7 @@ import java.util.Locale;
 @Transactional
 public class UserDaoImpl implements UserDao {
 
-    private final Logger LOGGER = Logger.getLogger(getClass());
+    private final Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
 
     @Autowired
     private MessageSource messageSource;

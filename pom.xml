@@ -12,7 +12,8 @@
   <properties>
     <spring.version>5.1.9.RELEASE</spring.version>
     <hibernate.version>5.2.2.Final</hibernate.version>
-    <mysql.version>5.1.38</mysql.version>
+    <mysql-connector-java.version>8.0.13</mysql-connector-java.version>
+    <jackson.version>2.9.10</jackson.version>
     <jstl.version>1.2</jstl.version>
     <javax.servlet.version>4.0.0-b06</javax.servlet.version>
     <javax.servlet.jsp.version>2.1</javax.servlet.jsp.version>
@@ -23,7 +24,7 @@
     <log4j.version>1.2.17</log4j.version>
     <javax.validation.version>1.0.0.GA</javax.validation.version>
     <commons-codec.version>1.9</commons-codec.version>
-    <com.fasterxml.jackson.core.version>2.8.1</com.fasterxml.jackson.core.version>
+    <com.fasterxml.jackson.core.version>2.10.0.pr3</com.fasterxml.jackson.core.version>
   </properties>
 
   <dependencies>
@@ -72,13 +73,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>${mysql.version}</version>
-    </dependency>
-
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
@@ -117,11 +111,11 @@
       <version>${log4j.version}</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
     <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
-      <version>${javax.validation.version}</version>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>runtime</scope>
+      <version>${mysql-connector-java.version}</version>
     </dependency>
 
      <!--https://mvnrepository.com/artifact/commons-codec/commons-codec-->
@@ -131,11 +125,29 @@
       <version>${commons-codec.version}</version>
     </dependency>
 
-    <!--позволяет конвертировать ваши классы в json-->
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${com.fasterxml.jackson.core.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/junit/junit -->
@@ -161,7 +173,6 @@
       <version>4.0.2</version>
       <scope>test</scope>
     </dependency>
-
 
   </dependencies>
 

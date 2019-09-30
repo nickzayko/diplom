@@ -32,5 +32,3 @@ CREATE TABLE `diploma_project`.`messages` (
   PRIMARY KEY (`id_messages`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
-

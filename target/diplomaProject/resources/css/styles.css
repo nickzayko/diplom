@@ -1,0 +1,155 @@
+.form-row {
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.form-row input{
+    float: inherit;
+    height: 20px;
+    line-height: 20px;
+    padding: 0px 5px;
+    width: 270px;
+    border: 1px solid #abadb3;
+}
+.input-form{
+    width: 600px;
+    margin: 0px auto;
+}
+.reg-headline{
+    text-align: center;
+}
+
+.reg-errors{
+    text-align: center;
+    color: red;
+    font-family: cursive;
+    font-size: 13px;
+
+}
+.form-row input[type=submit]:hover {
+    background: cornflowerblue;
+}
+
+.textArea{
+    margin-left: 15px;
+}
+
+.form-row1 input{
+    float: left;
+    margin-left:15px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0px 5px;
+    width: 178px;
+    border: 1px solid #abadb3;
+}
+
+.form-row1 input[type=submit]:hover {
+    background: cornflowerblue;
+}
+
+.form-row1 input[type=reset]:hover {
+    background: cornflowerblue;
+}
+
+.form-row2 button{
+    position: fixed;
+    right: 0; bottom: 30px;
+    float: right;
+    height: 40px;
+    line-height: 20px;
+    padding: 0px 5px;
+    width: 183px;
+    border: 1px solid #abadb3;
+}
+
+.form-row2 button[type=button]:hover {
+    background: cornflowerblue;
+}
+
+
+.footer{
+    position: fixed; /* Фиксированное положение */
+    left: 0; bottom: 0; /* Левый нижний угол */
+    padding: 30px; /* Поля вокруг текста */
+    background: thistle; /* Цвет фона */
+    color: black; /* Цвет текста */
+    width: 100%; /* Ширина слоя */
+}
+
+
+.tableAndButtonToViewPreviousMessages{
+    width: 860px;
+}
+
+.leftBlock{
+    float: left;
+    width: 600px;
+}
+
+.rightBlock{
+    float: right;
+    width: 260px;
+}
+
+.tableMessagesHeader{
+    width:400px;
+}
+
+.tableScriptAndMessages{
+    width:600px;
+    height:240px;
+    overflow:auto;
+}
+
+.tableMessages{
+
+}
+
+.trInTableMessages{
+
+}
+
+.tdFirstInTableMessages{
+    width:200px;
+}
+
+.tdSecondInTableMessages{
+    width:400px;
+}
+
+
+
+/*.tableMessagesHeader{*/
+    /*width: 480px;*/
+
+/*}*/
+
+/*!*.somediv{*!*/
+    /*!*!*width: 500px;*!*!*/
+    /*!*!*height: 250px;*!*!*/
+    /*!*!*overflow: auto;*!*!*/
+/*!*}*!*/
+
+/*.tableScriptAndMessages{*/
+    /*width: 500px;*/
+    /*height: 250px;*/
+    /*overflow: auto;*/
+
+/*}*/
+
+/*.wrapper{*/
+    /*width: 740px;*/
+
+/*}*/
+/*.leftBlock{*/
+    /*float: left;*/
+    /*width: 450px;*/
+/*}*/
+/*.rightBlock{*/
+    /*float: right;*/
+/*}*/
+
+/*.table2{*/
+    /*width: 600px;*/
+/*}*/
+

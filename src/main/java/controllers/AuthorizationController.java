@@ -2,6 +2,7 @@ package controllers;
 
 import entity.TopicEntity;
 import entity.UserEntity;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +24,12 @@ public class AuthorizationController {
     @Autowired
     private AuthorizationValidator authorizationValidator;
 
+    private final Logger LOGGER = Logger.getLogger(AuthorizationController.class);
+
     @RequestMapping(value = "/authorization", method = RequestMethod.GET)
     public String authorization(Model model) {
         model.addAttribute("userEntity", new UserEntity());
+        LOGGER.info("You are in authorization controller");
         return "index";
     }
 

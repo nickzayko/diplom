@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import service.UserServiceImpl;
-import utils.ReCaptchaValidator;
+import validators.ReCaptchaValidator;
 import validators.AuthorizationValidator;
 
 import javax.servlet.http.HttpServletRequest;
